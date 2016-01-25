@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by Bipin (HCL) -->
+<xs:schema xmlns="http://hcl.org/poc/airlines" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" targetNamespace="http://hcl.org/poc/airlines" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:element name="AirlinesReservationSystem">
+		<xs:annotation>
+			<xs:documentation>Airline Reservation System Design</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Passenger" type="PassengerType"/>
+				<xs:element name="Flight" type="FlightType"/>
+				<xs:element name="Address" type="AddressType"/>
+				<xs:element name="Class" type="ClassType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PassengerType">
+		<xs:sequence>
+			<xs:element name="First_Name" type="xs:string"/>
+			<xs:element name="Last_Name" type="xs:string"/>
+			<xs:element name="Age" type="xs:int"/>
+			<xs:element name="Passport" type="xs:string"/>
+			<xs:element name="Nationality" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightType">
+		<xs:sequence>
+			<xs:element name="Flight_Number" type="xs:string"/>
+			<xs:element name="Flight_id" type="xs:string"/>
+			<xs:element name="FlightDate" type="xs:date"/>
+			<xs:element name="Origin" type="xs:string"/>
+			<xs:element name="Destination" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressType">
+		<xs:sequence>
+			<xs:element name="House_nbr" type="xs:int"/>
+			<xs:element name="Street" type="xs:string"/>
+			<xs:element name="City" type="xs:string"/>
+			<xs:element name="Pincode" type="xs:integer"/>
+			<xs:element name="State" type="xs:string"/>
+			<xs:element name="Country" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetFlightsResponse">
+		<xs:complexContent>
+			<xs:extension base="FlightType">
+				<xs:sequence>
+					<xs:element name="DepartureDate" type="xs:date"/>
+					<xs:element name="DepartureTime" type="xs:time"/>
+					<xs:element name="ArrivalTime" type="xs:time"/>
+					<xs:element name="Price" type="xs:integer"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FlightDetailsInfoResponse">
+		<xs:complexContent>
+			<xs:extension base="FlightType">
+				<xs:sequence>
+					<xs:element name="FirstClass" type="ClassType"/>
+					<xs:element name="EconomyClass" type="ClassType"/>
+					<xs:element name="ListofPassengers" type="PassengerType" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ClassType">
+		<xs:sequence>
+			<xs:element name="Capacity" type="xs:integer"/>
+			<xs:element name="Used" type="xs:integer"/>
+			<xs:element name="Price" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PassengerQueryRequest">
+		<xs:sequence>
+			<xs:element name="First_Name" type="xs:string"/>
+			<xs:element name="Last_Name" type="xs:string"/>
+			<xs:element name="Reservation_Number" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PassengerQueryResponse">
+		<xs:complexContent>
+			<xs:extension base="PassengerType">
+				<xs:sequence>
+					<xs:element name="Reservation_Number" type="xs:string"/>
+					<xs:element name="Class" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PassengerReservationRequest">
+		<xs:sequence>
+			<xs:element name="ListofPassengers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PassengerDetails" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="PassengerType">
+										<xs:sequence>
+											<xs:element name="Class"/>
+											<xs:element name="Reservation_Number"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FlightDetails" type="FlightType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PassengerReservationResponse">
+		<xs:sequence>
+			<xs:element name="ListOfConfirmations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Confirmation">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="PassengerType">
+										<xs:sequence>
+											<xs:element name="Class"/>
+											<xs:element name="Reservation_Number"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancelReservationRequest">
+		<xs:sequence>
+			<xs:element name="ListOfReservations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Reservation_Number" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancelReservationResponse">
+		<xs:sequence>
+			<xs:element name="ListOfConfirmations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Reservation_Number" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetFlightsRequest">
+		<xs:sequence>
+			<xs:element name="Departing" type="xs:string"/>
+			<xs:element name="Arriving" type="xs:string"/>
+			<xs:element name="DepartureDate" type="xs:date"/>
+			<xs:element name="SeatPreference" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightQuery">
+		<xs:sequence>
+			<xs:element name="FlightNumber" type="xs:string"/>
+			<xs:element name="FlightDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,130 @@
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="AirlineReservationSystem" targetNamespace="http://hcl.org/poc/airlines"
+  xmlns:tns="http://hcl.org/poc/airlines" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema">
+	  <xsd:import namespace="http://hcl.org/poc/airlines" 
+               schemaLocation="AirlinesReservationmodel.xsd"/>
+               </xsd:schema>
+  </wsdl:types>
+
+  <wsdl:message name="getFlightsRequest">
+    <wsdl:part name="flightsInfo" type="tns:GetFlightsRequest" />
+  </wsdl:message>
+  
+  <wsdl:message name="getFlightsResponse">
+    <wsdl:part name="flightsAvailable" type="tns:GetFlightsResponse" />
+  </wsdl:message>
+
+  <wsdl:message name="getPassengerRequest">
+    <wsdl:part name="PassengerRequest" type="tns:PassengerQueryRequest" />
+  </wsdl:message>
+  
+  <wsdl:message name="getPassengerResponse">
+    <wsdl:part name="PassengeResponse" type="tns:PassengerQueryResponse" />
+  </wsdl:message>
+  
+  <wsdl:message name="getFlightDetailsRequest">
+    <wsdl:part name="FlightDetailsRequest" type="tns:FlightQuery" />
+  </wsdl:message>
+  
+   <wsdl:message name="getFlightDetailsResponse">
+    <wsdl:part name="FlightDetailsResponse" type="tns:FlightDetailsInfoResponse" />
+  </wsdl:message>
+  
+  <wsdl:message name="seatReservationRequest">
+    <wsdl:part name="ReservationRequest" type="tns:PassengerReservationRequest" />
+  </wsdl:message>
+  
+  <wsdl:message name="seatReservationResponse">
+    <wsdl:part name="ReservationResponse" type="tns:PassengerReservationResponse" />
+  </wsdl:message>
+  
+  <wsdl:message name="cancellationRequest">
+    <wsdl:part name="cancellationRequest" type="tns:CancelReservationRequest" />
+  </wsdl:message>
+  
+  <wsdl:message name="cancellationResponse">
+    <wsdl:part name="cancellationResponse" type="tns:CancelReservationResponse" />
+  </wsdl:message>
+
+  <wsdl:portType name="AirlinesReservationType">
+    <wsdl:operation name="getAvailableFlights">
+      <wsdl:input message="tns:getFlightsRequest" />
+      <wsdl:output message="tns:getFlightsResponse" />
+    </wsdl:operation>
+	<wsdl:operation name="seatReservation">
+      <wsdl:input message="tns:seatReservationRequest" />
+      <wsdl:output message="tns:seatReservationResponse" />
+    </wsdl:operation>
+	<wsdl:operation name="getFlightDetails">
+      <wsdl:input message="tns:getFlightDetailsRequest" />
+      <wsdl:output message="tns:getFlightDetailsResponse" />
+    </wsdl:operation>
+	<wsdl:operation name="getPassengerDetails">
+      <wsdl:input message="tns:getPassengerRequest" />
+      <wsdl:output message="tns:getPassengerResponse" />
+    </wsdl:operation>
+	<wsdl:operation name="cancelTrip">
+      <wsdl:input message="tns:cancellationRequest" />
+      <wsdl:output message="tns:cancellationResponse" />
+    </wsdl:operation> 
+  </wsdl:portType>
+  
+  <wsdl:binding name="AirlinesResBinding"
+                  type="tns:AirlinesReservationType">
+  <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+  <wsdl:operation name="getAvailableFlights">
+  <soap:operation soapAction="http://hcl.org/poc/airlines/getAvailableFlights" style="document"/>
+  <wsdl:input>
+  <soap:body use="literal"/>
+  </wsdl:input>
+  <wsdl:output>
+  <soap:body use="literal"/>
+  </wsdl:output>
+  </wsdl:operation>
+  <wsdl:operation name="seatReservation">
+  <soap:operation soapAction="http://hcl.org/poc/airlines/seatReservation" style="document"/>
+  <wsdl:input>
+  <soap:body use="literal"/>
+  </wsdl:input>
+  <wsdl:output>
+  <soap:body use="literal"/>
+  </wsdl:output>
+  </wsdl:operation>
+  <wsdl:operation name="getFlightDetails">
+  <soap:operation soapAction="http://hcl.org/poc/airlines/getFlightDetails" style="document"/>
+  <wsdl:input>
+  <soap:body use="literal"/>
+  </wsdl:input>
+  <wsdl:output>
+  <soap:body use="literal"/>
+  </wsdl:output>
+  </wsdl:operation>
+  <wsdl:operation name="getPassengerDetails">
+  <soap:operation soapAction="http://hcl.org/poc/airlines/getPassengerDetails" style="document"/>
+  <wsdl:input>
+  <soap:body use="literal"/>
+  </wsdl:input>
+  <wsdl:output>
+  <soap:body use="literal"/>
+  </wsdl:output>
+  </wsdl:operation>
+  <wsdl:operation name="cancelTrip">
+  <soap:operation soapAction="http://hcl.org/poc/airlines/cancellationRequest" style="document"/>
+  <wsdl:input>
+  <soap:body use="literal"/>
+  </wsdl:input>
+  <wsdl:output>
+  <soap:body use="literal"/>
+  </wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+  <wsdl:service name="AirlineReservationService">
+        <wsdl:documentation>Test service</wsdl:documentation>
+		<wsdl:port name="AirlineReservationPort" binding="tns:AirlinesResBinding">
+		<soap:address location="http://hcl.org/poc/airlines/AirlineReservationService.asmx"/></wsdl:port>		
+  </wsdl:service>
+
+</wsdl:definitions>

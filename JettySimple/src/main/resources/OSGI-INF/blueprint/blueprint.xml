@@ -5,16 +5,16 @@
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-  <bean id="helloBean" class="com.mycompany.camel.blueprint.HelloBean">
+<!--   <bean id="helloBean" class="com.mycompany.camel.blueprint.HelloBean">
       <property name="say" value="Hi from Camel"/>
-  </bean>
+  </bean> -->
+  
+  <bean class="com.mycompany.camel.blueprint.MessageHandler" id="myProcessor"/>
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
   <route id="timerToLog">
     <from uri="jetty:http://0.0.0.0:7080/jettysample"/>
-    <setBody>
-      <method ref="helloBean" method="hello"></method>
-    </setBody>
+    <process ref="myProcessor"/>
     <log message="The message contains ${body}"/>
   </route>
 </camelContext>
