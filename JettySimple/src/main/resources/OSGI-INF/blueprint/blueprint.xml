@@ -13,7 +13,7 @@
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
   <route id="timerToLog">
-    <from uri="jetty:http://0.0.0.0:7080/jettysample"/>
+    <from uri="jetty:http://0.0.0.0:7080/jettysample?exchangePattern=InOut&amp;synchronous=true"/>
     <process ref="myProcessor"/>
     <log message="The message contains ${body}"/>
   </route>
