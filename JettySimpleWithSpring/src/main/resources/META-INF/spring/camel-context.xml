@@ -11,7 +11,7 @@
 		- see the 'noop' flag) then performs content based routing on the message 
 		using XPath -->
 
-	<bean class="com.mycompany.camel.spring.MessageHandler" id="myProcessor" />
+	<bean class="my.rajesh.fuse.spring.MessageHandler" id="myProcessor" />
 
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
   <route id="MainFlow">
